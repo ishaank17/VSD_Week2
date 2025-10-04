@@ -50,7 +50,7 @@ By keeping the design compact and focusing on a few essential components, BabySo
 
 **BabySoC** emphasizes **functional modeling** as the crucial first step. By experimenting with BabySoC’s behavior, learners grasp core SoC principles before tackling RTL coding or silicon-level challenges.
 
-![Block Diagram](../VSD_Week2/Photos/imgs.png)
+![Block Diagram](./Photos/imgs.png)
 
 - **Energy Efficient**: Lower power consumption.
 - **High Performance**: Faster data processing.
