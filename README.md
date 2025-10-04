@@ -186,6 +186,8 @@ In this picture we can see the following signals:
 - **\core.OUT[9:0]:** This is the 10-bit `output [9:0] OUT` port of the core. This port comes from the RVMYTH register #17.
 - **OUT:** This is a `real` datatype wire which can simulate analog values. It is the `output wire real OUT` signal of the `DAC` module. This signal comes from the DAC.
 
+### As the Pre and post Synthesis outputs are same the SoC, the Synthesis is successful and the netlist correctly implements the logic.
+
 ## Yosys Final Report:
 
 #### [Link to the Log File](.//VSDBabySoC/output/synth/synth.log)
@@ -294,17 +296,17 @@ We can also see the assembly insruction for this given in `rvmyth.tlv`
 
 ```verilog
 \TLV
-   //
+   //initialize
    m4_asm(ADDI, r9, r0, 1)
    m4_asm(ADDI, r10, r0, 101011)
    m4_asm(ADDI, r11, r0, 0)
    m4_asm(ADDI, r17, r0, 0)
-
+   //part 1
    m4_asm(ADD, r17, r17, r11)
    m4_asm(ADDI, r11, r11, 1)
    m4_asm(BNE, r11, r10, 1111111111000)
    m4_asm(ADD, r17, r17, r11)
-
+   //part 2
    m4_asm(SUB, r17, r17, r11)
    m4_asm(SUB, r11, r11, r9)
    m4_asm(BNE, r11, r9, 1111111111000)
@@ -317,6 +319,53 @@ We can also see the assembly insruction for this given in `rvmyth.tlv`
 ```
 
 The instruction matches the **CPU_instr_a1** signal in the gtkwave window. The DAC gets a initial value of 17 (decimal) since all xregs are set to their index values upon reset and the data port of DAC uses the xreg[17]'s values.
+
+Initially the values in the register are initialized.
+
+```verilog
+r9  = 1
+r10 = 43
+r11 = 0
+r17 = 0
+```
+
+`BNE`- Branch on not equal
+
+`ADDI`- Add Immidiate.
+
+In the part 1 the pseudo-code is:
+
+```verilog
+LOOP1:
+  r17 = r17 + r11
+  r11 = r11 + 1
+  if (r11 != 43) goto LOOP1
+  r17 = r17 + r11
+```
+
+ This adds up numbers from 0 to 43. After LOOP1 `r11 = 43 , r17 = 946`.
+
+Also evident in picture below.
+
+![Max Val](./Photos/Pasted%20image%20(6).png)
+
+And the pseudo-code for Second part is:
+
+```verilog
+LOOP2:
+  r17 = r17 - r11
+  r11 = r11 - r9   // subtract 1
+  if (r11 != 1) goto LOOP2
+  r17 = r17 - r11
+```
+
+This counts down `r11` from 43 to 1, subtracting all numbers again.
+
+Also evident in picture below.
+
+![Min Value](./Photos/Pasted%20image%20(7).png)
+
+`m4_asm(BEQ, r0, r0, 1111111100000)` is just infinite loop as value in `r0` will be equal to value in itself.
 
 #### DAC Output:
 
@@ -357,3 +406,5 @@ The output from `DAC real wire`  is 0.16617790 which is correct as `17/1023 ≈ 
 This can clearly be seen and confirmed in the image below that after reset `OUT = 0.16617790` and `OUT[9:0]=0x011 (17 in decimal)`.
 
 ![Output](.//Photos/Pasted%20image%20(4).png)
+
+### As the Behavior/Output signal matched what we expected by comparing various snippets from parts of the SoC we can say the SoC behaves correctly.
