@@ -252,6 +252,28 @@ In this picture we can see the following signals:
 
 ## Waveform Analysis:
 
+## PLL :
+
+![op](./Photos/Pasted%20image%20(5).png)
+
+```verilog
+ always @(posedge REF) begin
+      if (lastedge > 0.0) begin
+         refpd = $realtime - lastedge;
+         // Adjust period towards 1/8 the reference period
+         //period = (0.99 * period) + (0.01 * (refpd / 8.0));
+         period =  (refpd / 8.0) ;
+      end
+      lastedge = $realtime;
+   end
+```
+
+This is the snippet from the code of the pll.
+
+This tells us that the frequency of the `clk` signal is 8 times faster than the reference signal.
+
+This behaviour is clearly visible in the above waveform output.
+
 ### <u>Reset Behaviour</u> :
 
 ![Reset Behavior ](.//Photos/Pasted%20image.png)
