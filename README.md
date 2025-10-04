@@ -50,11 +50,10 @@ By keeping the design compact and focusing on a few essential components, BabySo
 
 **BabySoC** emphasizes **functional modeling** as the crucial first step. By experimenting with BabySoC’s behavior, learners grasp core SoC principles before tackling RTL coding or silicon-level challenges.
 
-![Block Diagram](../WEEK2/Photos/imgs.png)
+![Block Diagram](../VSD_Week2/Photos/imgs.png)
 
-#### Why SoCs Are Awesome
 
-- **Space Saving**: Smaller devices.
+
 - **Energy Efficient**: Lower power consumption.
 - **High Performance**: Faster data processing.
 - **Cost Effective**: Cheaper to manufacture.
@@ -91,7 +90,7 @@ Designing a real SoC goes through multiple stages:
    
    - Translating RTL into layouts, gates, and silicon fabrication details.
 
-![www](../WEEK2/Photos/Apple_m1-chip-8-core-cpu-chart_11102020_big.jpg.large.jpg)
+![www](../VSD_Week2/Photos/Apple_m1-chip-8-core-cpu-chart_11102020_big.jpg.large.jpg)
 
 ## Part 2 -BabySoC Fundamentals & Functional Modelling
 
@@ -144,7 +143,7 @@ To see the output run :
 gtkwave output/pre_synth_sim/pre_synth_sim.vcd
 ```
 
-![Pre Synth Output](../WEEK2/Photos/2025-10-03-17-25-05-image.png)
+![Pre Synth Output](./Photos/2025-10-03-17-25-05-image.png)
 
 In this picture we can see the following signals:
 
@@ -181,7 +180,7 @@ gtkwave output/post_synth_sim/post_synth_sim.vcd
 
 In this picture we can see the following signals:
 
-![Post-Synth Sim](../WEEK2/Photos/Screenshot%20from%202025-10-03%2022-17-44.png)
+![Post-Synth Sim](.//Photos/Screenshot%20from%202025-10-03%2022-17-44.png)
 
 - **\core.CLK:** This is the `input CLK` signal of the core. This signal comes from the PLL, originally.
 - **reset:** This is the `input reset` signal of the core. This signal comes from an external source, originally.
@@ -191,7 +190,7 @@ In this picture we can see the following signals:
 
 ## Yosys Final Report:
 
-#### [Link to the Log File](../WEEK2/VSDBabySoC/output/synth/synth.log)
+#### [Link to the Log File](.//VSDBabySoC/output/synth/synth.log)
 
 ```shell
 === vsdbabysoc ===
@@ -257,7 +256,7 @@ In this picture we can see the following signals:
 
 ### <u>Reset Behaviour</u> :
 
-![Reset Behavior ](../WEEK2/Photos/Pasted%20image.png)
+![Reset Behavior ](.//Photos/Pasted%20image.png)
 
 The reset is directly connected to **CPU_reset_a0** and then in the next clock rising edge **CPU_reset_a1** is set.
 
@@ -269,7 +268,7 @@ In the above image we see **CPU_instr_a1** has `00000000000100000000010010010011
 
 Which is also given in the `rvmyth.v`
 
-![Assembly converted code](../WEEK2/Photos/2025-10-04-13-08-21-image.png)
+![Assembly converted code](.//Photos/2025-10-04-13-08-21-image.png)
 
 We can also see the assembly insruction for this given in `rvmyth.tlv`
 
@@ -301,13 +300,13 @@ The instruction matches the **CPU_instr_a1** signal in the gtkwave window. The D
 
 #### DAC Output:
 
-![DAC Outpu](../WEEK2/Photos/Pasted%20image%20(2).png "DAC Output")
+![DAC Outpu](.//Photos/Pasted%20image%20(2).png "DAC Output")
 
 ### <u>Clock</u> :
 
 `CLK`  (Yellow Signal) is the input clock signal of the **RVMYTH core**. This signal is derived from the output of the PLL. The CLK waveform shows a periodic square wave driving all synchronous elements of the BabySoC. Each rising edge triggers state transitions inside flip-flops and sequential logic.
 
-![Output](../WEEK2/Photos/Pasted%20image%20(3).png)
+![Output](.//Photos/Pasted%20image%20(3).png)
 
 ### <u>Data Flow Between Modules</u> :
 
@@ -337,4 +336,4 @@ The output from `DAC real wire`  is 0.16617790 which is correct as `17/1023 ≈ 
 
 This can clearly be seen and confirmed in the image below that after reset `OUT = 0.16617790` and `OUT[9:0]=0x011 (17 in decimal)`.
 
-![Output](../WEEK2/Photos/Pasted%20image%20(4).png)
+![Output](.//Photos/Pasted%20image%20(4).png)
