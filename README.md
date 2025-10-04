@@ -52,8 +52,6 @@ By keeping the design compact and focusing on a few essential components, BabySo
 
 ![Block Diagram](../VSD_Week2/Photos/imgs.png)
 
-
-
 - **Energy Efficient**: Lower power consumption.
 - **High Performance**: Faster data processing.
 - **Cost Effective**: Cheaper to manufacture.
@@ -90,7 +88,7 @@ Designing a real SoC goes through multiple stages:
    
    - Translating RTL into layouts, gates, and silicon fabrication details.
 
-![www](../VSD_Week2/Photos/Apple_m1-chip-8-core-cpu-chart_11102020_big.jpg.large.jpg)
+![www](./Photos/Apple_m1-chip-8-core-cpu-chart_11102020_big.jpg.large.jpg)
 
 ## Part 2 -BabySoC Fundamentals & Functional Modelling
 
